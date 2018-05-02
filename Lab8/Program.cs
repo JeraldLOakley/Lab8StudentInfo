@@ -11,8 +11,7 @@ namespace Lab8
         static void Main(string[] args)
         {
 
-            //while (true)
-            //{
+          
             string[] Names = { "Abby", "Bobby", "Charity", "Debby", "Emma", "Falicia", "Gabriel", "Heather", "Inga", "Jazel", "Kammy", "Luise", "Margeret", "Naomi", "Oprah", "Penelope", "Quan", "Rebecca", "Shay", "Tammy" };
             string[] hometown = { "Ann arbor", "Bardoux", "Cincinatti", "Detroit", "Esexville", "Farwell", "Gaylord", "Hamilton", "Ingum", "Jarusalem", "Kansas City", "Langdon", "Monroe", "Nashville", "Omar", "Park City", "Quebec City", "Reno", "Saginaw", "Tempe" };
             string[] fFood = { "Apple", "Banana", "Cherry", "Durian", "Elderberry", "Focaccia", "Grape", "Hummus", "Ice cream", "Jack fruit", "Kuarma", "Lemonade", "Mango", "Nori", "Orzo", "Pumpkin Pie", "Quinoa", "Radish", "Spaghetti", "Tuna" };
@@ -28,83 +27,93 @@ namespace Lab8
                 counter++;
                 Console.WriteLine($"{counter}. {StudentNumber}");
             }
-            while (true)
+            bool AnotherStudent = true;
+            while (AnotherStudent)
             {
-                while (true)
+
+
+                Console.Write("Please choose a student ID number (1-20): ");
+
+
+                string input = Console.ReadLine();
+                int index;
+                bool Success = int.TryParse(input, out index);
+                index--;
+
+
+                if (index >= 0 && index < Names.Length)
                 {
-                    Console.Write("Please choose a student ID number (1-20): ");
 
-
-                    string input = Console.ReadLine();
-                    int index;
-                    bool Success = int.TryParse(input, out index);
-                    index--;
-
-
-                    if (index >= 0 && index < Names.Length)
+                    if (Success)
                     {
-                        if (Success)
+                        bool GoOn = true;
+                        while (GoOn)
                         {
-                            while (true)
+                            Console.WriteLine($"What would you like to know about {Names[index]}?");
+                            while (GoOn)
                             {
-                                Console.WriteLine($"What would you like to know about {Names[index]}?");
-                                while (true)
+                                Console.WriteLine("If you would like to know where she is from type \"Hometown\"");
+                                Console.WriteLine("If you would like to know what her favorite food is type \"Favorite Food\"");
+                                string choice = Console.ReadLine().ToLower();
+                                if (choice == "hometown")
                                 {
-                                    Console.WriteLine("If you would like to know where she is from type \"Hometown\"");
-                                    Console.WriteLine("If you would like to know what her favorite food is type \"Favorite Food\"");
-                                    string choice = Console.ReadLine().ToLower();
-                                    if (choice == "hometown")
-                                    {
-                                        Console.WriteLine();
-                                        Console.WriteLine(hometown[index]);
-                                        return;
-                                    }
-                                    else if (choice == "favorite food")
-                                    {
-                                        Console.WriteLine();
-                                        Console.WriteLine(fFood[index]);
-                                        return;
-                                    }
+                                    Console.WriteLine();
+                                    Console.WriteLine(hometown[index]);
+                                    GoOn = false;
+                                }
+                                else if (choice == "favorite food")
+                                {
+                                    Console.WriteLine();
+                                    Console.WriteLine(fFood[index]);
+                                    GoOn = false;
+                                }
 
-                                    else
-                                    {
-                                        Console.WriteLine("I'm not sure what you're asking nor do we have that type of information.");
-                                    }
+                                else
+                                {
+                                    Console.WriteLine("I'm not sure what you're asking nor do we have that type of information.");
                                 }
                             }
                         }
-
-                        else
-                        {
-                            Console.WriteLine("There is no student by that label");
-                        }
-
                     }
 
                     else
                     {
-                        Console.WriteLine("We don't have that many students");
-                        continue;
+                        Console.WriteLine("There is no student by that label");
                     }
 
+                }
 
+                else
+                {
+                    Console.WriteLine("We don't have that many students");
+                    continue;
+                }
+                bool WrongEntry = true;
+                while (WrongEntry)
+                {
+                    Console.WriteLine("Would you like to know about another student");
                     string again = Console.ReadLine().ToUpper();
                     if (again == "YES")
                     {
-                        continue;
+                        WrongEntry = false;
+                        AnotherStudent = true;
                     }
                     else if (again == "NO")
                     {
-                        return;
+                        WrongEntry = false;
+                        AnotherStudent = false;
+
                     }
                     else
                     {
-
+                        Console.WriteLine("Sorry I didn't understand your answer");
+                        WrongEntry = true;
                     }
                 }
             }
         }
     }
 }
+
 
 
